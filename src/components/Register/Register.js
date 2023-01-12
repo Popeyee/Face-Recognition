@@ -24,7 +24,7 @@ class Register extends Component {
 	}
 
 	onSubmitRegister = () => {
-		fetch('https://gray-tough-kingfisher.cyclic.app/register', {
+		fetch('https://face-recognition-api-po0c.onrender.com/register', {
 		  method: 'post',
 		  headers: {'Content-Type': 'application/json'},
 		  body: JSON.stringify({
