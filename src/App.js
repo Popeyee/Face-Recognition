@@ -90,7 +90,7 @@ class App extends Component {
       .then(response => {
         console.log('hi', response)
         if (response) {
-          fetch('https://face-recognition-api-po0c.onrender.com/image', {
+          fetch('https://gray-tough-kingfisher.cyclic.app//image', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
