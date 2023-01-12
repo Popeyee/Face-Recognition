@@ -79,7 +79,7 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-      fetch('https://face-recognition-api-po0c.onrender.com/imageurl', {
+      fetch('https://gray-tough-kingfisher.cyclic.app/imageurl', {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
