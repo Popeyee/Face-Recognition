@@ -86,9 +86,7 @@ class App extends Component {
           input: this.state.input
         })
       })
-      .then(response => 
-        response.json()
-      )
+      .then(response => response.json())
       .then(response => { 
         console.log('res2', response.json())
         console.log('res3', response)
