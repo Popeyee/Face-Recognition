@@ -88,7 +88,6 @@ class App extends Component {
       })
       .then(response => response.json())
       .then(response => { 
-        console.log('res2', response.json())
         console.log('res3', response)
         if (response) {
           fetch('https://face-recognition-api-po0c.onrender.com/image', {
