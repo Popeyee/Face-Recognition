@@ -99,7 +99,8 @@ class App extends Component {
           })
             .then(response => 
               response.json(),
-              console.log('res', response)
+              console.log('res', response),
+              console.log('resjson', response.json())
             )
             .then(count => {
               this.setState(Object.assign(this.state.user, {entries: count}))
