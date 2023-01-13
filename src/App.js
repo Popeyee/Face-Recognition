@@ -87,8 +87,8 @@ class App extends Component {
         })
       })
       .then(response => 
+        console.log('res', response),
         response.json(),
-        console.log('res', response)
       )
       .then(response => { 
         console.log('res2', response.json())
