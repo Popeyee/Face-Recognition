@@ -86,9 +86,13 @@ class App extends Component {
           input: this.state.input
         })
       })
-      .then(response => response.json())
-      .then(response => {
-        console.log('hi', response)
+      .then(response => 
+        response.json(),
+        console.log('res', response)
+      )
+      .then(response => { 
+        console.log('res2', response.json())
+        console.log('res3', response)
         if (response) {
           fetch('https://face-recognition-api-po0c.onrender.com/image', {
             method: 'PUT',
@@ -99,11 +103,10 @@ class App extends Component {
           })
             .then(response => 
               response.json(),
-              console.log('res', response),
-              console.log('resjson', response.json())
             )
             .then(count => {
-              this.setState(Object.assign(this.state.user, {entries: count}))
+              this.setState(Object.assign(this.state.user, {entries: count})),
+              console.log('count', response.json())
             })
         }
         this.displayFaceBox(this.calculateFaceLocation(response))
