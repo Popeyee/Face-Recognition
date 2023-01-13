@@ -143,7 +143,7 @@ class App extends Component {
     });
  
     fetch(
-       "https://api.clarifai.com/v2/models/f76196b43bbd45c99b4f3cd8e8b40a8a/outputs",
+       "https://face-recognition-api-po0c.onrender.com/imageurl",
        {
          method: "POST",
          headers: {
