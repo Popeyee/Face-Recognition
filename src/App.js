@@ -70,7 +70,7 @@ class App extends Component {
   //   }
   // }
   calculateFaceLocation = (data) => {
-    const clarifaiFace = JSON.parse(data, null, 2).outputs[0].data.regions[0]
+    const clarifaiFace = JSON.parse(data).outputs[0].data.regions[0]
       .region_info.bounding_box;
       console.log(clarifaiFace)
     const image = document.getElementById("inputimage");
