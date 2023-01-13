@@ -94,35 +94,36 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-      fetch('https://face-recognition-api-po0c.onrender.com/imageurl', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          input: this.state.input
-        })
+    console.log('input',this.state.input)
+    fetch('https://face-recognition-api-po0c.onrender.com/imageurl', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        input: this.state.input
       })
-      .then(response => response.json())
-      .then(response => { 
-        console.log('res3', response)
-        if (response) {
-          fetch('https://face-recognition-api-po0c.onrender.com/image', {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-              id: this.state.user.id
-            })
+    })
+    .then(response => response.json())
+    .then(response => { 
+      console.log('res3', response)
+      if (response) {
+        fetch('https://face-recognition-api-po0c.onrender.com/image', {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            id: this.state.user.id
           })
-            .then(response => 
-              response.json(),
-            )
-            .then(count => {
-              this.setState(Object.assign(this.state.user, {entries: count}))
-            })
-            .catch(console.log)
-        }
-        this.displayFaceBox(this.calculateFaceLocation(response))
-      })
-      .catch(err => console.log(err));
+        })
+          .then(response => 
+            response.json(),
+          )
+          .then(count => {
+            this.setState(Object.assign(this.state.user, {entries: count}))
+          })
+          .catch(console.log)
+      }
+      this.displayFaceBox(this.calculateFaceLocation(response))
+    })
+    .catch(err => console.log(err));
   }
 
   onRouteChange = (route) => {
