@@ -59,7 +59,7 @@ class App extends Component {
     const image = document.getElementById('inputimage');
     const width = Number(image.width);
     const height = Number(image.height);
-    console.log(width,height);
+    console.log('w and h',width,height);
     
     return {
       leftCol: clarifaiFace.left_col * width,
@@ -97,7 +97,10 @@ class App extends Component {
               id: this.state.user.id
             })
           })
-            .then(response => response.json())
+            .then(response => 
+              response.json(),
+              console.log('res', response)
+            )
             .then(count => {
               this.setState(Object.assign(this.state.user, {entries: count}))
             })
