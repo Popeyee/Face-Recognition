@@ -70,9 +70,8 @@ class App extends Component {
   //   }
   // }
   calculateFaceLocation = (data) => {
-    const clarifaiFace = JSON.parse(data).outputs[0].data.regions[0]
-      .region_info.bounding_box;
-      console.log(clarifaiFace)
+    const clarifaiFace = JSON.parse(data, null, 2).outputs[0].data.regions[0]
+     .region_info.bounding_box;
     const image = document.getElementById("inputimage");
     const width = Number(image.width);
     const height = Number(image.height);
@@ -82,7 +81,7 @@ class App extends Component {
       rightCol: width - clarifaiFace.right_col * width,
       bottomRow: height - clarifaiFace.bottom_row * height,
     };
-  };
+  }
 
   displayFaceBox = (box) => {
     this.setState({box: box});
@@ -92,39 +91,73 @@ class App extends Component {
     this.setState({input: event.target.value});
   }
 
+  // onButtonSubmit = () => {
+  //   this.setState({imageUrl: this.state.input});
+  //   console.log('input',this.state.input)
+  //   fetch('https://face-recognition-api-po0c.onrender.com/imageurl', {
+  //     method: 'POST',
+  //     headers: {'Content-Type': 'application/json'},
+  //     body: JSON.stringify({
+  //       input: this.state.input
+  //     })
+  //   })
+  //   .then(response => response.json())
+  //   .then(response => { 
+  //     console.log('res3', response)
+  //     if (response) {
+  //       fetch('https://face-recognition-api-po0c.onrender.com/image', {
+  //         method: 'PUT',
+  //         headers: {'Content-Type': 'application/json'},
+  //         body: JSON.stringify({
+  //           id: this.state.user.id
+  //         })
+  //       })
+  //         .then(response => 
+  //           response.json(),
+  //         )
+  //         .then(count => {
+  //           this.setState(Object.assign(this.state.user, {entries: count}))
+  //         })
+  //         .catch(console.log)
+  //     }
+  //     this.displayFaceBox(this.calculateFaceLocation(response))
+  //   })
+  //   .catch(err => console.log(err));
+  // }
+
   onButtonSubmit = () => {
-    this.setState({imageUrl: this.state.input});
-    console.log('input',this.state.input)
-    fetch('https://face-recognition-api-po0c.onrender.com/imageurl', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        input: this.state.input
-      })
-    })
-    .then(response => response.json())
-    .then(response => { 
-      console.log('res3', response)
-      if (response) {
-        fetch('https://face-recognition-api-po0c.onrender.com/image', {
-          method: 'PUT',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            id: this.state.user.id
-          })
-        })
-          .then(response => 
-            response.json(),
-          )
-          .then(count => {
-            this.setState(Object.assign(this.state.user, {entries: count}))
-          })
-          .catch(console.log)
-      }
-      this.displayFaceBox(this.calculateFaceLocation(response))
-    })
-    .catch(err => console.log(err));
+    const raw = JSON.stringify({
+      user_app_id : {
+        user_id: "my_first_project",
+        app_id: "smartbrain"
+      },
+      inputs: [
+        {
+          data: {
+            image: {
+              url: this.state.input
+            },
+          },
+        },
+      ],
+    });
+ 
+    fetch(
+       "https://api.clarifai.com/v2/models/f76196b43bbd45c99b4f3cd8e8b40a8a/outputs",
+       {
+         method: "POST",
+         headers: {
+           Accept: "application/json",
+           Authorization: "c858a0455c544648a29e79838ad0a283",
+         },
+         body: raw,
+       }
+     )
+     .then((response) => response.text())
+     .then((result) => this.displayFaceBox(this.calculateFaceLocation(result)))
+     .catch((error) => console.log("error", error));
   }
+ 
 
   onRouteChange = (route) => {
     if (route === 'signout') {
